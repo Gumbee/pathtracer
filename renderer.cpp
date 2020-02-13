@@ -1,0 +1,67 @@
+//
+//  renderer.cpp
+//  pathtracer
+//
+//  Created by Mugeeb Hassan on 12.02.20.
+//  Copyright © 2020 Gumbee. All rights reserved.
+//
+
+#include "renderer.hpp"
+#include "scene.hpp"
+#include "camera.hpp"
+#include "image/image_buffer.hpp"
+#include "datatypes/ray.hpp"
+#include "datatypes/color.hpp"
+#include "random.hpp"
+
+Renderer::Renderer(unsigned int num_samples){
+    num_samples_ = num_samples;
+}
+
+ImageBuffer* Renderer::Render(Scene* scene, Camera* camera){
+    unsigned int width = camera->GetWidth();
+    unsigned int height = camera->GetHeight();
+    
+    ImageBuffer* buffer = new ImageBuffer(width, height);
+    
+    /** fill the background yellow */
+    buffer->Fill(Colors::Black);
+    
+    # pragma omp parallel for collapse(2)
+    for(int i=0;i<height;i++){
+        for(int j=0;j<width;j++){
+            Ray ray = camera->GetRayThroughPixel(i,j);
+            
+            Color hit_colors[num_samples_];
+            
+            float jitter = 0.05f;
+            
+            # pragma omp parallel for
+            for(int k=0;k<num_samples_;k++){
+                Ray sample_ray = ray;
+                // add random jitter to the ray
+                sample_ray.position += Vector3f(rand_float()*jitter,rand_float()*jitter,rand_float()*jitter);
+                // cast the first ray for the given pixel
+                Color color = scene->Trace(sample_ray);
+                // set the pixel's color according to the ray trace
+                hit_colors[k] = color;
+            }
+            
+            Vector3f color_sum = Vector3f(0,0,0);
+            
+            for(int k=0;k<num_samples_;k++){
+                color_sum = color_sum + hit_colors[k];
+            }
+            
+            Color color = Color(
+                color_sum.x/num_samples_,
+                color_sum.y/num_samples_,
+                color_sum.z/num_samples_
+            );
+            
+            buffer->Set(i, j, color);
+        }
+    }
+    
+    return buffer;
+}
