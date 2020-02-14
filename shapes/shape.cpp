@@ -7,3 +7,7 @@
 //
 
 #include "shape.hpp"
+
+Shape::Shape(Material* material){
+    material_ = material;
+}

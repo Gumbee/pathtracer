@@ -8,10 +8,13 @@
 
 #include "sphere.hpp"
 
-#include<iostream>
 #include<limits>
+#include "../materials/diffuse_material.hpp"
 
-Sphere::Sphere(Vector3f position, float radius){
+Sphere::Sphere(Vector3f position, float radius) : Sphere(position, radius, new DiffuseMaterial(Colors::White)) {
+}
+
+Sphere::Sphere(Vector3f position, float radius, Material* material) : Shape(material){
     position_ = position;
     radius_ = radius;
 }
@@ -39,6 +42,7 @@ bool Sphere::Intersects(Ray& ray, HitResult& result){
     result.hit_position = ray.position + scaled_dir;
     result.hit_normal = (result.hit_position - position_).Normalize();
     result.t = t0;
+    result.material = material_;
     result.hit = true;
     
     return true;

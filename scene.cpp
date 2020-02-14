@@ -31,11 +31,7 @@ Color Scene::Trace(Ray& ray){
 
     HitResult closest_hit;
     
-    Color background = Color(
-        120,
-        51,
-        (ray.direction.y+1)*255*.5f
-    );
+    Color background = FlatColors::Yellow;
     
     if(ray.depth > 5){
         return background;
@@ -55,15 +51,15 @@ Color Scene::Trace(Ray& ray){
     
     if(closest_hit.hit){
         /** calculate the direction in which the ray bounces*/
-        Vector3f bounce_direction = rand_vec_in_oriented_hemisphere(closest_hit.hit_normal, ray.direction);
+        Vector3f bounce_direction = closest_hit.material->Reflect(closest_hit.hit_normal, ray.direction);
         /** create a bounce ray with increased depth */
-        Ray bounce_ray = Ray(closest_hit.hit_position + closest_hit.hit_normal, bounce_direction);
+        Ray bounce_ray = Ray(closest_hit.hit_position + closest_hit.hit_normal*0.0001f, bounce_direction);
         bounce_ray.depth = ray.depth + 1;
         
         // calculate the factor by which we scale the bounce light
-        float weight = bounce_direction.Normalize().Dot(closest_hit.hit_normal.Normalize());
+        float weight = closest_hit.material->Weight(closest_hit.hit_normal, ray.direction);
         
-        return 0.5 * Trace(bounce_ray);
+        return closest_hit.material->emissive_color_ + weight * Trace(bounce_ray);
     }
     
     return background;

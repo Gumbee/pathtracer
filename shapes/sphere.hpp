@@ -11,6 +11,7 @@
 
 #include "shape.hpp"
 #include "../datatypes/vector.hpp"
+#include "../materials/material.hpp"
 
 class Sphere : public Shape {
 private:
@@ -21,6 +22,7 @@ private:
     
 public:
     Sphere(Vector3f position, float radius);
+    Sphere(Vector3f position, float radius, Material* material);
     /** check whether the given ray intersects the sphere */
     bool Intersects(Ray& ray, HitResult& result) override;
 };

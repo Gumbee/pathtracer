@@ -11,6 +11,10 @@
 
 #include "../scene.hpp"
 
-Scene* GetDebugScene();
+Scene* SingleSphereScene();
+Scene* DebugScene();
+Scene* TriangleDebugScene();
+Scene* MirrorDebugScene();
+Scene* LightDebugScene();
 
 #endif /* example_scenes_hpp */

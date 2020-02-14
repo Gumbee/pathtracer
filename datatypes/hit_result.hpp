@@ -10,10 +10,12 @@
 #define hit_result_hpp
 
 #include "vector.hpp"
+#include "../materials/material.hpp"
 
 struct HitResult {
     Vector3f hit_position;
     Vector3f hit_normal;
+    Material* material;
     
     float t = 0;
     bool hit = false;
