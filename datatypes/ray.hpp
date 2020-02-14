@@ -15,6 +15,8 @@ struct Ray {
     Vector3f position;
     Vector3f direction;
     
+    unsigned int depth = 0;
+    
     Ray(Vector3f position, Vector3f direction){
         this->position = position;
         this->direction = direction;

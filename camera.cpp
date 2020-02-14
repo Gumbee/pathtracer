@@ -10,7 +10,6 @@
 #include "vector.hpp"
 
 #include <math.h>
-
 #include "datatypes/ray.hpp"
 
 Camera::Camera(unsigned int width, unsigned int height, float fov){

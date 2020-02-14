@@ -20,14 +20,14 @@
 #include "renderer.hpp"
 
 int main(int argc, const char * argv[]) {
-    unsigned int width = 1000;
-    unsigned int height = 600;
+    unsigned int width = 1920;
+    unsigned int height = 1080;
     
     auto start = std::chrono::high_resolution_clock::now();
     
     ImageWriter* writer = new ImageWriter(width, height);
     Camera* camera = new Camera(width, height, M_PI/2.0f);
-    Renderer* renderer = new Renderer(20);
+    Renderer* renderer = new Renderer(1000);
     Scene* scene = GetDebugScene();
     
     /** render an example scene */

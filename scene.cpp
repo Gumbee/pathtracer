@@ -10,6 +10,8 @@
 
 #include <assert.h>
 
+#include "random.hpp"
+
 size_t Scene::Size(){
     return objects_.size();
 }
@@ -29,6 +31,16 @@ Color Scene::Trace(Ray& ray){
 
     HitResult closest_hit;
     
+    Color background = Color(
+        120,
+        51,
+        (ray.direction.y+1)*255*.5f
+    );
+    
+    if(ray.depth > 5){
+        return background;
+    }
+    
     for(int i=0;i<size;i++){
         Shape* shape = objects_[i];
         
@@ -42,13 +54,18 @@ Color Scene::Trace(Ray& ray){
     }
     
     if(closest_hit.hit){
-        return Color(
-            (closest_hit.hit_normal.x+1)*0.5*255,
-            (closest_hit.hit_normal.y+1)*0.5*255,
-            (closest_hit.hit_normal.z+1)*0.5*255
-        );
+        /** calculate the direction in which the ray bounces*/
+        Vector3f bounce_direction = rand_vec_in_oriented_hemisphere(closest_hit.hit_normal, ray.direction);
+        /** create a bounce ray with increased depth */
+        Ray bounce_ray = Ray(closest_hit.hit_position + closest_hit.hit_normal, bounce_direction);
+        bounce_ray.depth = ray.depth + 1;
+        
+        // calculate the factor by which we scale the bounce light
+        float weight = bounce_direction.Normalize().Dot(closest_hit.hit_normal.Normalize());
+        
+        return 0.5 * Trace(bounce_ray);
     }
     
-    return Colors::Black;
+    return background;
 }
 

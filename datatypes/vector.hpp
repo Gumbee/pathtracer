@@ -53,6 +53,11 @@ inline Vector<data_type> operator+(Vector<data_type>& a, Vector<data_type>& b){
 }
 
 template<class data_type>
+inline Vector<data_type> operator-(Vector<data_type>& a){
+    return Vector<data_type>(-a.x, -a.y, -a.z);
+}
+
+template<class data_type>
 inline Vector<data_type> operator-(Vector<data_type>& a, Vector<data_type>& b){
     return Vector<data_type>(a.x - b.x, a.y - b.y, a.z - b.z);
 }
@@ -63,7 +68,7 @@ inline Vector<data_type> operator*(Vector<data_type>& a, Vector<data_type>& b){
 }
 
 template<class data_type>
-inline Vector<data_type> operator*(float a, Vector<data_type>& b){
+inline Vector<data_type> operator*(float a, Vector<data_type> b){
     return b*a;
 }
 

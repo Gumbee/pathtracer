@@ -32,11 +32,10 @@ ImageBuffer* Renderer::Render(Scene* scene, Camera* camera){
         for(int j=0;j<width;j++){
             Ray ray = camera->GetRayThroughPixel(i,j);
             
-            Color hit_colors[num_samples_];
+            Vector3f color_sum = Vector3f(0,0,0);
             
             float jitter = 0.05f;
             
-            # pragma omp parallel for
             for(int k=0;k<num_samples_;k++){
                 Ray sample_ray = ray;
                 // add random jitter to the ray
@@ -44,13 +43,7 @@ ImageBuffer* Renderer::Render(Scene* scene, Camera* camera){
                 // cast the first ray for the given pixel
                 Color color = scene->Trace(sample_ray);
                 // set the pixel's color according to the ray trace
-                hit_colors[k] = color;
-            }
-            
-            Vector3f color_sum = Vector3f(0,0,0);
-            
-            for(int k=0;k<num_samples_;k++){
-                color_sum = color_sum + hit_colors[k];
+                color_sum = color_sum + color;
             }
             
             Color color = Color(
