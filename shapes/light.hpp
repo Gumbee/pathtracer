@@ -9,13 +9,15 @@
 #ifndef light_hpp
 #define light_hpp
 
-#include "sphere.cpp"
+#include "sphere.hpp"
 #include "../materials/emissive_material.hpp"
 
-class Light : public Sphere {
+class Light : public Sphere{
+    
 public:
     Light(Vector3f position, float radius);
-    Light(Vector3f position, float radius, EmissiveMaterial* material);
+    Light(Vector3f position, float radius, float intensity);
+    Light(Vector3f position, float radius, float intensity, Color color);
 };
 
 #endif /* light_hpp */

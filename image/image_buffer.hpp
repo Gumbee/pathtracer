@@ -13,13 +13,15 @@
 
 #include "../datatypes/color.hpp"
 
+typedef Vector<unsigned char> ByteColor;
+
 class ImageBuffer {
 private:
     /** buffer settings */
     unsigned int width_;
     unsigned int height_;
     /** the content of the buffer */
-    Color* data_;
+    ByteColor* data_;
     
 public:
     ImageBuffer(unsigned int width, unsigned int height);
@@ -30,7 +32,7 @@ public:
     /** fill the buffer with the given buffer (overrides any buffer content) */
     void Set(unsigned int row, unsigned int column, Color color);
     /** return the content of the buffer */
-    Color* GetData();
+    ByteColor* GetData();
 };
 
 #endif /* image_buffer_hpp */

@@ -13,7 +13,7 @@
 #include "omp.h"
 
 ImageBuffer::ImageBuffer(unsigned int width, unsigned int height) : width_(width), height_(height){
-    data_ = new Color[width*height];
+    data_ = new ByteColor[width*height];
 }
 
 size_t ImageBuffer::Size(){
@@ -33,9 +33,9 @@ void ImageBuffer::Set(unsigned int row, unsigned int column, Color color){
     assert(row < height_);
     assert(column < width_);
     
-    data_[row*width_+column] = color;
+    data_[row*width_+column] = ByteColor(color.x, color.y, color.z);
 }
 
-Color* ImageBuffer::GetData(){
+ByteColor* ImageBuffer::GetData(){
     return data_;
 }

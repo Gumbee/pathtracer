@@ -11,7 +11,7 @@
 
 #include "vector.hpp"
 
-typedef Vector<unsigned char> Color;
+typedef Vector3f Color;
 
 namespace Colors {
     const static Color White = Color(255,255,255);

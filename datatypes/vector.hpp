@@ -27,6 +27,10 @@ struct Vector {
     Vector Cross(Vector& other);
     /** get the length of the vector */
     float Size();
+    /** get the max value of the vector */
+    data_type Max();
+    /** clamp every value between the given values */
+    Vector Clamp(data_type min, data_type max);
     
     Vector(){
     }
@@ -63,7 +67,7 @@ inline Vector<data_type> operator-(Vector<data_type> a, Vector<data_type> b){
 }
 
 template<class data_type>
-inline Vector<data_type> operator*(Vector<data_type>& a, Vector<data_type>& b){
+inline Vector<data_type> operator*(Vector<data_type> a, Vector<data_type> b){
     return Vector<data_type>(a.x * b.x, a.y * b.y, a.z * b.z);
 }
 
@@ -78,12 +82,7 @@ inline Vector<data_type> operator*(Vector<data_type> a, float b){
 }
 
 template<class data_type>
-inline Vector<data_type>& operator/(float a, Vector<data_type>& b){
-    return b/a;
-}
-
-template<class data_type>
-inline Vector<data_type>& operator/(Vector<data_type>& a, float b){
+inline Vector<data_type> operator/(Vector<data_type> a, float b){
     return Vector<data_type>(a.x / b, a.y / b, a.z / b);
 }
 
@@ -109,8 +108,18 @@ float Vector<data_type>::Size(){
     return sqrt(x*x + y*y + z*z);
 }
 
-inline Vector<float> operator+(Vector<float>& a, Vector<unsigned char>& b){
-    return Vector<float>(a.x + b.x, a.y + b.y, a.z + b.z);
+template<class data_type>
+data_type Vector<data_type>::Max(){
+    return x > y ? (x > z ? x : z) : (y > z ? y : z);
+}
+
+template<class data_type>
+Vector<data_type> Vector<data_type>::Clamp(data_type min, data_type max){
+    return Vector<data_type>(
+        x < min ? min : (x > max ? max : x),
+        y < min ? min : (y > max ? max : y),
+        z < min ? min : (z > max ? max : z)
+    );
 }
 
 #endif /* vector_hpp */

@@ -27,7 +27,7 @@ public:
     /** Add an object to the scene */
     void AddObject(Shape* object);
     /** trace a ray in the scene */
-    Color Trace(Ray& ray);
+    Vector3f Trace(Ray& ray);
     /** return the scene object at the given index in the scene */
     Shape* operator[](size_t index) const;
 };

@@ -8,8 +8,11 @@
 
 #include "light.hpp"
 
-Light::Light(Vector3f position, float radius) : Light(position, radius, new EmissiveMaterial(Colors::White)) {
+Light::Light(Vector3f position, float radius) : Light(position, radius, 10.0f) {
 }
 
-Light::Light(Vector3f position, float radius, EmissiveMaterial* material) : Sphere(position, radius, material){
+Light::Light(Vector3f position, float radius, float intensity) : Light(position, radius, intensity, FlatColors::Yellow) {
+}
+
+Light::Light(Vector3f position, float radius, float intensity, Color color) : Sphere(position, radius, new EmissiveMaterial(color, intensity)){
 }

@@ -8,9 +8,14 @@
 
 #include "emissive_material.hpp"
 
-EmissiveMaterial::EmissiveMaterial(Color emissive_color) : Material(Colors::Black, emissive_color){
+EmissiveMaterial::EmissiveMaterial(Color emissive_color, float intensity) : Material(emissive_color){
+    intensity_ = intensity;
 }
 
 float EmissiveMaterial::Weight(Vector3f surface_normal, Vector3f to_refelect){
-    return 0.0;
+    return 0.0f;
+}
+
+Color EmissiveMaterial::GetEmissiveColor(){
+    return color_ * intensity_;
 }

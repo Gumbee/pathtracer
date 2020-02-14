@@ -26,14 +26,15 @@ Shape* Scene::operator[](size_t index) const{
     return objects_[index];
 }
 
-Color Scene::Trace(Ray& ray){
+Vector3f Scene::Trace(Ray& ray){
     size_t size = Size();
 
     HitResult closest_hit;
     
-    Color background = FlatColors::Yellow;
+    float t = (ray.direction.y+1)/2.0f;
+    Vector3f background = Colors::White * t + FlatColors::Blue * (1-t);
     
-    if(ray.depth > 5){
+    if(ray.depth > 20){
         return background;
     }
     
@@ -59,7 +60,7 @@ Color Scene::Trace(Ray& ray){
         // calculate the factor by which we scale the bounce light
         float weight = closest_hit.material->Weight(closest_hit.hit_normal, ray.direction);
         
-        return closest_hit.material->emissive_color_ + weight * Trace(bounce_ray);
+        return closest_hit.material->GetEmissiveColor() + weight * Trace(bounce_ray);
     }
     
     return background;

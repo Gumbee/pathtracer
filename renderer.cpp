@@ -41,15 +41,21 @@ ImageBuffer* Renderer::Render(Scene* scene, Camera* camera){
                 // add random jitter to the ray
                 sample_ray.position += Vector3f(rand_float()*jitter,rand_float()*jitter,rand_float()*jitter);
                 // cast the first ray for the given pixel
-                Color color = scene->Trace(sample_ray);
+                Vector3f color = scene->Trace(sample_ray);
                 // set the pixel's color according to the ray trace
                 color_sum = color_sum + color;
             }
             
+            Vector3f scaled = (color_sum / num_samples_);
+            
+            if(scaled.Max() > 255){
+                scaled = scaled * (255.0f / scaled.Max());
+            }
+            
             Color color = Color(
-                color_sum.x/num_samples_,
-                color_sum.y/num_samples_,
-                color_sum.z/num_samples_
+                scaled.x,
+                scaled.y,
+                scaled.z
             );
             
             buffer->Set(i, j, color);

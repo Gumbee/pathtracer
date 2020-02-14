@@ -13,13 +13,8 @@
 
 #include "../random.hpp"
 
-Material::Material(Color diffuse_color){
-    this->diffuse_color_ = diffuse_color;
-}
-
-Material::Material(Color diffuse_color, Color emissive_color){
-    this->diffuse_color_ = diffuse_color;
-    this->emissive_color_ = emissive_color;
+Material::Material(Color color){
+    this->color_ = color;
 }
 
 Vector3f Material::Reflect(Vector3f surface_normal, Vector3f to_refelect){
@@ -30,4 +25,8 @@ Vector3f Material::Reflect(Vector3f surface_normal, Vector3f to_refelect){
 
 float Material::Weight(Vector3f surface_normal, Vector3f to_refelect){
     return 0.9;
+}
+
+Color Material::GetEmissiveColor(){
+    return Colors::Black;
 }

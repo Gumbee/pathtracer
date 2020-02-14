@@ -12,10 +12,14 @@
 #include "material.hpp"
 
 class EmissiveMaterial : public Material {
-public:
-    EmissiveMaterial(Color emissive_color);
+protected:
+    float intensity_;
     
+public:
+    EmissiveMaterial(Color emissive_color, float intensity);
     float Weight(Vector3f surface_normal, Vector3f to_refelect) override;
+    /** return the emissive color scaled by the intensity */
+    Color GetEmissiveColor() override;
 };
 
 #endif /* emissive_material_hpp */
