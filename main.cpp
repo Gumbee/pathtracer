@@ -20,8 +20,8 @@
 #include "renderer.hpp"
 
 int main(int argc, const char * argv[]) {
-    unsigned int width = 1920;
-    unsigned int height = 1080;
+    unsigned int width = 800;
+    unsigned int height = 500;
     
     auto start = std::chrono::high_resolution_clock::now();
     

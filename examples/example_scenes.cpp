@@ -59,8 +59,6 @@ Scene* MirrorDebugScene(){
     scene->AddObject(new Sphere(Vector3f(0,0,-16), 5.0f, new Material(Colors::White)));
     scene->AddObject(new Sphere(Vector3f(-10,-3,-16), 3.0f, new Material(Colors::White)));
     scene->AddObject(new Sphere(Vector3f(10,-2,-16), 4.0f, new DiffuseMaterial(Colors::White)));
-    scene->AddObject(new Sphere(Vector3f(5,-5,-14.5), 1.0f, new DiffuseMaterial(Colors::White)));
-    scene->AddObject(new Sphere(Vector3f(27,25,-8), 10.25f, new EmissiveMaterial(FlatColors::Red, 20.0f)));
     
     float height = -6;
     Vector3f a = Vector3f(20,height,0);
