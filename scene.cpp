@@ -34,7 +34,7 @@ Vector3f Scene::Trace(Ray& ray){
     float t = (ray.direction.y+1)/2.0f;
     Vector3f background = Colors::White * t + FlatColors::Blue * (1-t);
     
-    if(ray.depth > 20){
+    if(ray.depth > 5){
         return background;
     }
     

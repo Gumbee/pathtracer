@@ -27,7 +27,7 @@ int main(int argc, const char * argv[]) {
     
     ImageWriter* writer = new ImageWriter(width, height);
     Camera* camera = new Camera(width, height, M_PI/2.0f);
-    Renderer* renderer = new Renderer(10);
+    Renderer* renderer = new Renderer(50);
     Scene* scene = MirrorDebugScene();
     
     /** render an example scene */

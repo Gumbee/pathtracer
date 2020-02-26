@@ -14,7 +14,7 @@
 #include <vector>
 #include <string>
 
-struct ImageBuffer;
+class ImageBuffer;
 
 class ImageWriter {
 private:

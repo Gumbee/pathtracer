@@ -7,7 +7,7 @@
 //
 
 #include "camera.hpp"
-#include "vector.hpp"
+#include "datatypes/vector.hpp"
 
 #include <math.h>
 #include "datatypes/ray.hpp"

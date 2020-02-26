@@ -15,7 +15,7 @@ class ImageBuffer;
 
 class Renderer {
 private:
-    unsigned int num_samples_ = 10;
+    unsigned int num_samples_;
     
 public:
     Renderer(unsigned int num_samples);

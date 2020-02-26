@@ -17,8 +17,13 @@ struct HitResult {
     Vector3f hit_normal;
     Material* material;
     
-    float t = 0;
-    bool hit = false;
+    float t;
+    bool hit;
+    
+    HitResult(){
+        t = 0;
+        hit = false;
+    }
 };
 
 #endif /* hit_result_hpp */
